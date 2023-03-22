@@ -95,6 +95,7 @@ class MyApp extends StatelessWidget {
         ),
 
         bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 1,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
