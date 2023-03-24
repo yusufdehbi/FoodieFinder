@@ -1,7 +1,7 @@
+import 'package:first_version/componenets/cuisine_type_filter.dart';
 import 'package:first_version/componenets/map_view.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../componenets/list_view.dart';
@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isMapView = true;
+  bool isFiltersVisible = false;
+  int pageIndex = 1;
 
   List<Restaurant> restaurants = [
     Restaurant(
@@ -81,29 +83,57 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const Expanded(flex: 1, child: SearchSection()),
-          const Expanded(
-            flex: 1,
-            child: PriceFilter(),
-          ),
-          Expanded(
-            flex: 6,
-            child: AnimatedCrossFade(
-              firstChild: MapView(
-                restaurants: restaurants,
+      resizeToAvoidBottomInset: false,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Column(
+          children: [
+            Expanded(
+              flex: isFiltersVisible ? 9 : 2,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                child: Column(
+                  children: [
+                    SearchSection(
+                        isFilterVisible: isFiltersVisible,
+                        onToggleFilter: () {
+                          setState(() {
+                            isFiltersVisible = !isFiltersVisible;
+                          });
+                        }),
+                    Visibility(
+                      visible: isFiltersVisible,
+                      child: const PriceFilter(),
+                    ),
+                    SizedBox(
+                      height: xsmall,
+                    ),
+                    Visibility(
+                      visible: isFiltersVisible,
+                      child: const CuisineTypeFilter(),
+                    )
+                  ],
+                ),
               ),
-              secondChild: RestaurantListView(
-                restaurants: restaurants,
-              ),
-              duration: const Duration(seconds: 1),
-              crossFadeState: isMapView
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
             ),
-          ),
-        ],
+            Expanded(
+              flex: 12,
+              child: AnimatedCrossFade(
+                firstChild: MapView(
+                  restaurants: restaurants,
+                ),
+                secondChild: RestaurantListView(
+                  restaurants: restaurants,
+                ),
+                duration: const Duration(seconds: 1),
+                crossFadeState: isMapView
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         foregroundColor: white,
@@ -113,16 +143,6 @@ class _HomePageState extends State<HomePage> {
           });
         },
         child: isMapView ? const Icon(Icons.list) : const Icon(Icons.map),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Favorite'),
-        ],
       ),
     );
   }

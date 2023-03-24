@@ -7,7 +7,7 @@ Color c = Colors.redAccent;
 var primary = const Color(0xFF5DB075);
 var accent = const Color(0xFF4B9460);
 var heading = const Color(0xFF0F1641);
-var text = const Color(0xFFAAAAAA);
+var text = Color.fromARGB(255, 86, 86, 86);
 var iconColor = const Color(0xFFB8BCCB);
 var background = const Color(0xFFF8FAFB);
 var white = const Color(0xFFFFFFFF);
@@ -36,8 +36,13 @@ TextStyle p3 = GoogleFonts.poppins(
 TextStyle tButton = GoogleFonts.poppins(
     fontSize: 14.0, fontWeight: FontWeight.w400, color: white);
 
+TextStyle tileTitle = GoogleFonts.poppins(
+  fontSize: 15.0,
+  color: Colors.grey[700],
+);
+
 //Gaps
-var large = 50.0;
+var large = 40.0;
 var medium = 30.0;
 var small = 16.0;
 var xsmall = 10.0;

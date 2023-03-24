@@ -1,7 +1,7 @@
 import 'package:first_version/pages/home_page.dart';
-import 'package:first_version/pages/test_geolocator.dart';
-import 'package:first_version/utilis/style.dart';
+import 'package:first_version/pages/restaurant_page.dart';
 import 'package:flutter/material.dart';
+import 'pages/profile_page.dart';
 
 void main() {
   runApp(const ResApp());
@@ -15,13 +15,43 @@ class ResApp extends StatefulWidget {
 }
 
 class _ResAppState extends State<ResApp> {
+  int pageIndex = 1;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const SafeArea(
-        child: HomePage(),
+      theme: ThemeData(
+          primarySwatch: Colors.green, scaffoldBackgroundColor: Colors.white),
+      home: SafeArea(
+        child: Scaffold(
+          body: pageIndex == 0
+              ? const ProfilePage()
+              : pageIndex == 1
+                  ? const HomePage()
+                  : const RestaurantPage(),
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (index) {
+              setState(() {
+                pageIndex = index;
+              });
+            },
+            currentIndex: pageIndex,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_rounded),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favorite',
+              ),
+            ],
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );

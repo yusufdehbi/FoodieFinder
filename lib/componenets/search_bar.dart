@@ -2,7 +2,11 @@ import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
 
 class SearchSection extends StatelessWidget {
-  const SearchSection({super.key});
+  final bool isFilterVisible;
+  final Function() onToggleFilter;
+
+  const SearchSection(
+      {super.key, required this.isFilterVisible, required this.onToggleFilter});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,18 @@ class SearchSection extends StatelessWidget {
           ),
           height: 50,
           width: 50,
-          child: Icon(Icons.swap_horiz, color: white),
+          // child: Icon(Icons.swap_horiz, color: white),
+          child: IconButton(
+            icon: isFilterVisible
+                ? Icon(Icons.arrow_upward, color: white)
+                : Icon(
+                    Icons.swap_horiz,
+                    color: white,
+                  ),
+            onPressed: () {
+              onToggleFilter();
+            },
+          ),
         ),
       ],
     );
