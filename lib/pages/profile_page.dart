@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../componenets/favorite_restaurants.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -21,12 +23,10 @@ class ProfilePage extends StatelessWidget {
     var currentUser = users[0];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile Page"),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -80,56 +80,13 @@ class ProfilePage extends StatelessWidget {
                 height: large,
               ),
               Text(
-                'Preferences',
+                'Favorite Restaurants',
                 style: heading2,
               ),
               SizedBox(
                 height: medium,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Container(
-                      child: ResCard(),
-                      height: 120.0,
-                      width: 120.0,
-                    ),
-                    SizedBox(
-                      width: xsmall,
-                    ),
-                    Container(
-                      color: Colors.red,
-                      height: 100.0,
-                      width: 100.0,
-                    ),
-                    SizedBox(
-                      width: xsmall,
-                    ),
-                    Container(
-                      color: Colors.red,
-                      height: 100.0,
-                      width: 100.0,
-                    ),
-                    SizedBox(
-                      width: xsmall,
-                    ),
-                    Container(
-                      color: Colors.red,
-                      height: 100.0,
-                      width: 100.0,
-                    ),
-                    SizedBox(
-                      width: xsmall,
-                    ),
-                    Container(
-                      color: Colors.red,
-                      height: 100.0,
-                      width: 100.0,
-                    ),
-                  ],
-                ),
-              ),
+              const FavoriteRestaurants(),
               SizedBox(
                 height: large,
               ),
