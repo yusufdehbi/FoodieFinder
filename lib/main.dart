@@ -1,3 +1,4 @@
+import 'package:first_version/pages/favorite_restaurants_page.dart';
 import 'package:first_version/pages/home_page.dart';
 import 'package:first_version/pages/restaurant_page.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +26,16 @@ class _ResAppState extends State<ResApp> {
       home: SafeArea(
         child: Scaffold(
           body: pageIndex == 0
-              ? const ProfilePage()
+              ? ProfilePage(
+                  changePage: () {
+                    setState(() {
+                      pageIndex = 2;
+                    });
+                  },
+                )
               : pageIndex == 1
                   ? const HomePage()
-                  : const RestaurantPage(),
+                  : const FavoriteRestaurantsPage(),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {

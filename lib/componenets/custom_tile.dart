@@ -11,15 +11,19 @@ class CustomTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: leadingIcon,
-      title: Text(
-        textTile,
-        style: tileTitle,
+    return GestureDetector(
+      onTap: () {},
+      child: ListTile(
+        leading: leadingIcon,
+        title: Text(
+          textTile,
+          style: tileTitle,
+        ),
+        tileColor: background,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        trailing: const Icon(Icons.edit),
       ),
-      tileColor: background,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      trailing: const Icon(Icons.edit),
     );
   }
 }

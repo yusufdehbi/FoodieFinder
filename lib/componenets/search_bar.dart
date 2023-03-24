@@ -20,7 +20,7 @@ class SearchSection extends StatelessWidget {
               prefixIcon: Icon(Icons.search, size: 22, color: text),
               hintText: 'Search Restaurant',
               hintStyle: p1,
-              fillColor: white,
+              fillColor: Colors.grey[100],
               filled: true,
               contentPadding: EdgeInsets.symmetric(vertical: small),
               border: OutlineInputBorder(

@@ -11,10 +11,6 @@ class Geolocator extends StatefulWidget {
 class _GeolocatorState extends State<Geolocator> {
   String locationMessage = "Current location of user";
 
-// void getLocation() async
-// Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-// }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

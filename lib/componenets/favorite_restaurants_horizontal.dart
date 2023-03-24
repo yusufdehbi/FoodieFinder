@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../utilis/style.dart';
 
-class FavoriteRestaurants extends StatelessWidget {
-  const FavoriteRestaurants({super.key});
+class FavoriteRestaurantsHorizontal extends StatelessWidget {
+  const FavoriteRestaurantsHorizontal({super.key});
 
   @override
   Widget build(BuildContext context) {

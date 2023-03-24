@@ -1,6 +1,7 @@
 import 'package:first_version/componenets/custom_tile.dart';
 import 'package:first_version/componenets/res_card.dart';
 import 'package:first_version/models/user.dart';
+import 'package:first_version/pages/favorite_restaurants_page.dart';
 import 'package:first_version/utilis/extentions.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/gestures.dart';
@@ -8,10 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../componenets/favorite_restaurants.dart';
+import '../componenets/favorite_restaurants_horizontal.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final Function changePage;
+  const ProfilePage({super.key, required this.changePage});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,9 @@ class ProfilePage extends StatelessWidget {
     var currentUser = users[0];
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+      body: Scrollbar(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,9 +88,31 @@ class ProfilePage extends StatelessWidget {
               SizedBox(
                 height: medium,
               ),
-              const FavoriteRestaurants(),
+              const FavoriteRestaurantsHorizontal(),
+              Container(
+                width: double.infinity,
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const FavoriteRestaurantsPage(),
+                    //   ),
+                    // );
+                    changePage();
+                  },
+                  child: Text(
+                    "show more",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w500,
+                        color: accent),
+                  ),
+                ),
+              ),
               SizedBox(
-                height: large,
+                height: medium,
               ),
               Text(
                 'Preferences',

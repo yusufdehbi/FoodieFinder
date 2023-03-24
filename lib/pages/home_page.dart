@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Expanded(
-              flex: 12,
+              flex: 10,
               child: AnimatedCrossFade(
                 firstChild: MapView(
                   restaurants: restaurants,
