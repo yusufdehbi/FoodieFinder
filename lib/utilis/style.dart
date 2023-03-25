@@ -34,7 +34,7 @@ TextStyle p3 = GoogleFonts.poppins(
     fontSize: 10.0, fontWeight: FontWeight.w400, color: text);
 
 TextStyle tButton = GoogleFonts.poppins(
-    fontSize: 14.0, fontWeight: FontWeight.w400, color: white);
+    fontSize: 14.0, fontWeight: FontWeight.w500, color: white);
 
 TextStyle tileTitle = GoogleFonts.poppins(
   fontSize: 15.0,

@@ -2,6 +2,9 @@ import 'package:first_version/componenets/custom_tile.dart';
 import 'package:first_version/componenets/res_card.dart';
 import 'package:first_version/models/user.dart';
 import 'package:first_version/pages/favorite_restaurants_page.dart';
+import 'package:first_version/pages/profile%20pages/edit_email_page.dart';
+import 'package:first_version/pages/profile%20pages/edit_name_page.dart';
+import 'package:first_version/pages/profile%20pages/edit_password_page.dart';
 import 'package:first_version/utilis/extentions.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/gestures.dart';
@@ -61,20 +64,48 @@ class ProfilePage extends StatelessWidget {
               Column(
                 children: [
                   CustomTile(
-                      leadingIcon: const Icon(Icons.person),
-                      textTile: currentUser.name),
+                    leadingIcon: const Icon(Icons.person),
+                    textTile: currentUser.name,
+                    navigate: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              EditNamePage(currentValue: currentUser.name),
+                        ),
+                      );
+                    },
+                  ),
                   SizedBox(
                     height: xsmall,
                   ),
                   CustomTile(
-                      leadingIcon: const Icon(Icons.mail),
-                      textTile: currentUser.mail),
+                    leadingIcon: const Icon(Icons.mail),
+                    textTile: currentUser.mail,
+                    navigate: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              EditMailPage(mailAdress: currentUser.mail),
+                        ),
+                      );
+                    },
+                  ),
                   SizedBox(
                     height: xsmall,
                   ),
-                  const CustomTile(
-                    leadingIcon: Icon(Icons.password),
+                  CustomTile(
+                    leadingIcon: const Icon(Icons.password),
                     textTile: "*********",
+                    navigate: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EditPasswordPage(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -123,15 +154,18 @@ class ProfilePage extends StatelessWidget {
               ),
               Column(
                 children: [
-                  const CustomTile(
-                      leadingIcon: Icon(Icons.notifications),
-                      textTile: "Notification"),
+                  CustomTile(
+                    leadingIcon: const Icon(Icons.notifications),
+                    textTile: "Notification",
+                    navigate: () {},
+                  ),
                   SizedBox(
                     height: xsmall,
                   ),
-                  const CustomTile(
-                    leadingIcon: Icon(Icons.language),
+                  CustomTile(
+                    leadingIcon: const Icon(Icons.language),
                     textTile: "Langugae",
+                    navigate: () {},
                   ),
                 ],
               ),

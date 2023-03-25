@@ -2,7 +2,8 @@ import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({super.key});
+  final String textContent;
+  const PrimaryButton({super.key, required this.textContent});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,7 @@ class PrimaryButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
-        shadowColor: Colors.greenAccent,
+        shadowColor: Colors.transparent,
         elevation: 3,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
@@ -18,7 +19,7 @@ class PrimaryButton extends StatelessWidget {
       ),
       onPressed: () {},
       child: Text(
-        'Hey bro how are you doing',
+        textContent,
         style: tButton,
       ),
     );

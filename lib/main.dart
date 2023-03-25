@@ -1,7 +1,10 @@
 import 'package:first_version/pages/favorite_restaurants_page.dart';
 import 'package:first_version/pages/home_page.dart';
+import 'package:first_version/pages/profile%20pages/edit_name_page.dart';
+import 'package:first_version/pages/profile%20pages/edit_password_page.dart';
 import 'package:first_version/pages/restaurant_page.dart';
 import 'package:flutter/material.dart';
+import 'pages/profile pages/edit_email_page.dart';
 import 'pages/profile_page.dart';
 
 void main() {
@@ -35,7 +38,8 @@ class _ResAppState extends State<ResApp> {
                 )
               : pageIndex == 1
                   ? const HomePage()
-                  : const FavoriteRestaurantsPage(),
+                  //!Page Chnaged for test goals
+                  : const EditPasswordPage(),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {

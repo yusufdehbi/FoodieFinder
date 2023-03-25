@@ -5,14 +5,21 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTile extends StatelessWidget {
   final Icon leadingIcon;
   final String textTile;
+  final Function navigate;
 
-  const CustomTile(
-      {super.key, required this.leadingIcon, required this.textTile});
+  const CustomTile({
+    super.key,
+    required this.leadingIcon,
+    required this.textTile,
+    required this.navigate,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        navigate();
+      },
       child: ListTile(
         leading: leadingIcon,
         title: Text(
