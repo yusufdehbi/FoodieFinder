@@ -39,7 +39,7 @@ class _ResAppState extends State<ResApp> {
               : pageIndex == 1
                   ? const HomePage()
                   //!Page Chnaged for test goals
-                  : const EditPasswordPage(),
+                  : const RestaurantPage(),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {

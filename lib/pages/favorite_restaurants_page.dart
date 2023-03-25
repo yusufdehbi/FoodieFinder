@@ -75,17 +75,19 @@ class FavoriteRestaurantsPage extends StatelessWidget {
           'Fast Food'),
     ];
 
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-      itemCount: restaurants.length,
-      itemBuilder: (context, index) {
-        return ResHorizontalCard(
-          restaurantName: restaurants[index].name,
-          rating: restaurants[index].rating,
-          imageUrl: restaurants[index].imageUrl,
-        );
-      },
+    return Scaffold(
+      body: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
+        itemCount: restaurants.length,
+        itemBuilder: (context, index) {
+          return ResHorizontalCard(
+            restaurantName: restaurants[index].name,
+            rating: restaurants[index].rating,
+            imageUrl: restaurants[index].imageUrl,
+          );
+        },
+      ),
     );
   }
 }
