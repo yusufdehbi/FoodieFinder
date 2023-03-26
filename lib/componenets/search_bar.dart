@@ -43,7 +43,7 @@ class _SearchSectionState extends State<SearchSection> {
 
   @override
   Widget build(BuildContext context) {
-    showTestMessage(_matchRestaurant.name);
+    // showTestMessage(_matchRestaurant.name);
     return Row(
       children: [
         //! send the function to the child from the parent

@@ -8,13 +8,20 @@ import 'package:flutter_map/plugin_api.dart';
 class MapView extends StatelessWidget {
   final List<Restaurant> restaurants;
   final LatLng centerCoordinate;
-  const MapView(
-      {super.key, required this.restaurants, required this.centerCoordinate});
+  // final Function(LatLng) updateCoordinte;
+  const MapView({
+    super.key,
+    required this.restaurants,
+    required this.centerCoordinate,
+  });
 
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
+        onPositionChanged: (position, _) {
+          final newCenter = position.center;
+        },
         zoom: 14.0,
         center: centerCoordinate,
         interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,

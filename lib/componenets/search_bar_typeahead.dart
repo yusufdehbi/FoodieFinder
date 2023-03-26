@@ -139,18 +139,19 @@ class _SearchBarTypeaheadState extends State<SearchBarTypeahead> {
                 if (restaurant.name.toLowerCase() ==
                     userSelected.toString().toLowerCase()) {
                   matchRestaurant = restaurant;
-                  Fluttertoast.showToast(
-                      msg: "Search bar typeahead widget" +
-                          matchRestaurant.toString());
+                  // Fluttertoast.showToast(
+                  //     msg: "Search bar typeahead widget" +
+                  //         matchRestaurant.toString());
                   searchedRestaurant = matchRestaurant;
                   _handleSearchQueryChanged(searchedRestaurant);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          RestaurantPage(restaurant: searchedRestaurant),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) =>
+                  //         RestaurantPage(restaurant: searchedRestaurant),
+                  //   ),
+                  // );
+                  // widget.onSearch(matchRestaurant);
                 }
               }
             });

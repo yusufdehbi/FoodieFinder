@@ -92,18 +92,31 @@ class _HomePageState extends State<HomePage> {
       msg: "Home Page Message: $str",
     );
 
-    void GoToRestaurantPage() {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RestaurantPage(restaurant: _matchRestaurant)));
-    }
+    //   void GoToRestaurantPage() {
+    //     Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //             builder: (context) =>
+    //                 RestaurantPage(restaurant: _matchRestaurant)));
+    //   }
+    // }
+
+    //  void _updateMapCenter(LatLng newCenter) {
+    //   setState(() {
+    //     _newCenter = newCenter;
+    //   });
+
+    // void _updateMapCenter(LatLng newCenter) {
+    //   setState(() {
+    //     centerCoordinate = newCenter;
+    //   });
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
-    // message(_matchRestaurant.name);
+    message(_matchRestaurant.name);
+    message("new coordinate: $centerCoordinate");
     // Fluttertoast.showToast(msg: _matchRestaurant.name);
     return Scaffold(
       resizeToAvoidBottomInset: false,
