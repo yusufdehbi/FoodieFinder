@@ -1,13 +1,28 @@
 import 'package:first_version/componenets/primary_button.dart';
+import 'package:first_version/componenets/rating.dart';
 import 'package:first_version/componenets/secondary_button.dart';
+import 'package:first_version/models/restaurant.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 class RestaurantPage extends StatelessWidget {
-  const RestaurantPage({super.key});
+  final Restaurant restaurant;
+  const RestaurantPage({super.key, required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
+    // Restaurant restaurant = Restaurant(
+    // 'Dar Fawakih',
+    // 'dar_fawakih_desc',
+    // LatLng(33.99452490, -6.82504580),
+    // 4.0,
+    // "PIZZERIA Dar Alfawakih، Rabat, Morocco",
+    // 'images/dar_alfawakih.jpg',
+    // 2,
+    // 'Morrocan');
+    int leftStars = 5 - restaurant.rating.toInt();
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,13 +35,13 @@ class RestaurantPage extends StatelessWidget {
                   Container(
                     height: 200.0,
                     width: double.infinity,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
                       ),
                       image: DecorationImage(
-                        image: AssetImage('images/yamali_cham.jpg'),
+                        image: AssetImage(restaurant.imageUrl),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -51,7 +66,7 @@ class RestaurantPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     alignment: Alignment.center,
-                    child: Text("Yamali  cham", style: heading2),
+                    child: Text(restaurant.name, style: heading2),
                   )
                 ],
               ),
@@ -70,44 +85,82 @@ class RestaurantPage extends StatelessWidget {
                           width: xsmall,
                         ),
                         Text(
-                          "hay nahda, rabat, morocco",
+                          restaurant.address,
                           style: p2,
+                          overflow: TextOverflow.visible,
                         )
                       ],
                     ),
                     SizedBox(
                       height: small,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.star_rate_rounded,
-                          color: Colors.yellow,
-                          size: 50.0,
-                        ),
-                        Icon(
-                          Icons.star_rate_rounded,
-                          color: Colors.yellow,
-                          size: 50.0,
-                        ),
-                        Icon(
-                          Icons.star_rate_rounded,
-                          color: Colors.yellow,
-                          size: 50.0,
-                        ),
-                        Icon(
-                          Icons.star_rate_rounded,
-                          color: Colors.yellow,
-                          size: 50.0,
-                        ),
-                        Icon(
-                          Icons.star_rate_rounded,
-                          color: Colors.yellow,
-                          size: 50.0,
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: const [
+                    //     Icon(
+                    //       Icons.star_rate_rounded,
+                    //       color: Colors.yellow,
+                    //       size: 50.0,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star_rate_rounded,
+                    //       color: Colors.yellow,
+                    //       size: 50.0,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star_rate_rounded,
+                    //       color: Colors.yellow,
+                    //       size: 50.0,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star_rate_rounded,
+                    //       color: Colors.yellow,
+                    //       size: 50.0,
+                    //     ),
+                    //     Icon(
+                    //       Icons.star_rate_rounded,
+                    //       color: Colors.yellow,
+                    //       size: 50.0,
+                    //     ),
+                    //   ],
+                    // ),
+                    restaurant.rating.toInt() == 5
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              restaurant.rating.toInt(),
+                              (index) => const Icon(
+                                Icons.star_rate_rounded,
+                                color: Colors.yellow,
+                                size: 45.0,
+                              ),
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: List.generate(
+                                  restaurant.rating.toInt(),
+                                  (index) => const Icon(
+                                    Icons.star_rate_rounded,
+                                    color: Colors.yellow,
+                                    size: 45.0,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                children: List.generate(
+                                  leftStars,
+                                  (index) => Icon(
+                                    Icons.star_rate_rounded,
+                                    color: iconColor,
+                                    size: 45.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                     SizedBox(
                       height: small,
                     ),
@@ -132,7 +185,7 @@ class RestaurantPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: Text(
-                        "Restaurant Description go here",
+                        restaurant.description,
                         style: p1,
                         textAlign: TextAlign.start,
                       ),

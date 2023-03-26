@@ -2,8 +2,11 @@ import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../models/restaurant.dart';
+
 class ResCard extends StatelessWidget {
-  const ResCard({super.key});
+  final Restaurant restaurant;
+  const ResCard({super.key, required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +17,8 @@ class ResCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.greenAccent,
         borderRadius: BorderRadius.circular(20.0),
-        image: const DecorationImage(
-          image: AssetImage('images/yamali_cham.jpg'),
+        image: DecorationImage(
+          image: AssetImage(restaurant.imageUrl),
           fit: BoxFit.cover,
         ),
       ),
@@ -32,7 +35,7 @@ class ResCard extends StatelessWidget {
                 end: Alignment.topCenter),
             borderRadius: BorderRadius.circular(20.0)),
         child: Text(
-          "Yamali Cham",
+          restaurant.name,
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
               fontSize: 14.0, color: Colors.white, fontWeight: FontWeight.w500),

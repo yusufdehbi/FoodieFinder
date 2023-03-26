@@ -38,6 +38,8 @@ dependencies:
   latlong2: ^0.8.1
   google_fonts: ^4.0.3
   geolocator: ^8.2.0
+  flutter_typeahead: ^4.3.7
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:
@@ -76,12 +78,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: MarkerIconFirst
+      fonts:
+        - asset: fonts/fonts/MarkerIconFirst.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

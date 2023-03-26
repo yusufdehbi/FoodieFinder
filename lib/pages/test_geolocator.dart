@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Geolocator extends StatefulWidget {
@@ -31,8 +32,9 @@ class _GeolocatorState extends State<Geolocator> {
             ElevatedButton(
               onPressed: () {
                 // _getCurrentLocation();
+                Fluttertoast.showToast(msg: "hello world");
               },
-              child: const Text("Get Current Location"),
+              child: const Text("Get Current "),
             ),
           ],
         ),

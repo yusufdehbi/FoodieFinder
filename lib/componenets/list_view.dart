@@ -1,5 +1,6 @@
 import 'package:first_version/componenets/res_horizontal_card.dart';
 import 'package:first_version/models/restaurant.dart';
+import 'package:first_version/pages/restaurant_page.dart';
 import 'package:flutter/material.dart';
 
 class RestaurantListView extends StatelessWidget {
@@ -12,12 +13,20 @@ class RestaurantListView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
           return ResHorizontalCard(
-            restaurantName: restaurants[index].name,
-            rating: restaurants[index].rating,
-            imageUrl: restaurants[index].imageUrl,
+            restaurant: restaurants[index],
+            doTask: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      RestaurantPage(restaurant: restaurants[index]),
+                ),
+              );
+            },
           );
         },
       ),

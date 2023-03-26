@@ -1,10 +1,9 @@
 import 'package:first_version/pages/favorite_restaurants_page.dart';
 import 'package:first_version/pages/home_page.dart';
-import 'package:first_version/pages/profile%20pages/edit_name_page.dart';
-import 'package:first_version/pages/profile%20pages/edit_password_page.dart';
 import 'package:first_version/pages/restaurant_page.dart';
+import 'package:first_version/pages/test_geolocator.dart';
 import 'package:flutter/material.dart';
-import 'pages/profile pages/edit_email_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'pages/profile_page.dart';
 
 void main() {
@@ -25,7 +24,9 @@ class _ResAppState extends State<ResApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primarySwatch: Colors.green, scaffoldBackgroundColor: Colors.white),
+          fontFamily: GoogleFonts.poppins().fontFamily,
+          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Colors.white),
       home: SafeArea(
         child: Scaffold(
           body: pageIndex == 0
@@ -38,8 +39,8 @@ class _ResAppState extends State<ResApp> {
                 )
               : pageIndex == 1
                   ? const HomePage()
-                  //!Page Chnaged for test goals
-                  : const RestaurantPage(),
+                  //!Page Chnaged for test purpose - should back to favorite page.
+                  : const Geolocator(),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {

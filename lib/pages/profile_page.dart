@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../componenets/favorite_restaurants_horizontal.dart';
+import '../models/restaurant.dart';
 
 class ProfilePage extends StatelessWidget {
   final Function changePage;
@@ -20,12 +21,78 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<User> users = [
-      User("youssef dehbi", "yusufdehbi@gmail.com", '0670307326', 'youssef1234',
-          LatLng(0, 0))
+    // List<User> users = [
+    //   User("youssef dehbi", "yusufdehbi@gmail.com", '0670307326', 'youssef1234',
+    //       LatLng(0, 0), "images/rec1.jpg")
+    // ];
+    List<Restaurant> restaurants = [
+      Restaurant(
+          'Dar Fawakih',
+          'dar_fawakih_desc',
+          LatLng(33.99452490, -6.82504580),
+          4.0,
+          "PIZZERIA Dar Alfawakih، Rabat, Morocco",
+          'images/dar_alfawakih.jpg',
+          2,
+          'Morrocan'),
+      Restaurant(
+          'Yamali Acham',
+          'yamali_cham_desc',
+          LatLng(34.00243980, -6.85094190),
+          5.0,
+          "PYamal Acham, Avenue Fal Ould Oumeir, Rabat, Morocco",
+          'images/yamali_cham.jpg',
+          3,
+          'Cham'),
+      Restaurant(
+          'KFC',
+          'kfc_desc',
+          LatLng(34.02135290, -6.83960620),
+          3.0,
+          "KFC- Madina Rabat, N1, Rabat, Morocco",
+          'images/kfc.png',
+          2,
+          'Fast Food'),
+      Restaurant(
+          'MacDonald',
+          'macdonald_desc',
+          LatLng(34.03122000, -6.81662600),
+          2.0,
+          "McDonald's, Avenue de Fès, Salé, Morocco",
+          'images/mcdonalds.jpg',
+          2,
+          'Fast Food'),
+      Restaurant(
+          'Abtal Acham',
+          'abtal',
+          LatLng(34.01628490, -6.83462930),
+          4.0,
+          "Chawarma Abtal Acham Rabat ville, Avenue Abou Faris Al Marini, Rabat, Morocco",
+          'images/abtal_cham.jpg',
+          1,
+          'Cham'),
+      Restaurant(
+          'Dar Najji',
+          'dar_najji_desc',
+          LatLng(34.02183530, -6.84194150),
+          4.0,
+          "Dar Naji Rabat Hassan, Avenue Jazirat Al Arabe, Rabat, Morocco",
+          'images/dar_naji.jpg',
+          2,
+          'Mix'),
+      Restaurant(
+          'Chizz Mia',
+          'chizz_mia_desc',
+          LatLng(33.981074, -6.826227),
+          3.0,
+          "Chizza Mia takkadoum rabat",
+          'images/chizza_mia.jpg',
+          2,
+          'Fast Food'),
     ];
 
-    var currentUser = users[0];
+    var currentUser = User("youssef dehbi", "yusufdehbi@gmail.com",
+        '0670307326', 'youssef1234', LatLng(0, 0), 'images/dar_alfawakih.jpg');
 
     return Scaffold(
       body: Scrollbar(
@@ -38,8 +105,8 @@ class ProfilePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('images/res1.jpg'),
+                  CircleAvatar(
+                    backgroundImage: AssetImage(currentUser.imageUrl),
                     radius: 50,
                   ),
                   SizedBox(
@@ -119,7 +186,9 @@ class ProfilePage extends StatelessWidget {
               SizedBox(
                 height: medium,
               ),
-              const FavoriteRestaurantsHorizontal(),
+              FavoriteRestaurantsHorizontal(
+                restaurants: restaurants,
+              ),
               Container(
                 width: double.infinity,
                 alignment: Alignment.centerRight,

@@ -6,6 +6,8 @@ class User {
   final String phoneNumber;
   final String password;
   final LatLng location;
+  final String imageUrl;
 
-  User(this.name, this.mail, this.phoneNumber, this.password, this.location);
+  User(this.name, this.mail, this.phoneNumber, this.password, this.location,
+      this.imageUrl);
 }

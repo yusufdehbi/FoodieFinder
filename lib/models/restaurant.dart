@@ -12,4 +12,9 @@ class Restaurant {
 
   Restaurant(this.name, this.description, this.location, this.rating,
       this.address, this.imageUrl, this.priceRange, this.cuisineType);
+
+  @override
+  String toString() {
+    return "$name _ $location";
+  }
 }

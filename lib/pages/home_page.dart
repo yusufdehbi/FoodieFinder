@@ -1,7 +1,10 @@
 import 'package:first_version/componenets/cuisine_type_filter.dart';
 import 'package:first_version/componenets/map_view.dart';
+import 'package:first_version/componenets/search_bar_typeahead.dart';
+import 'package:first_version/pages/restaurant_page.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../componenets/list_view.dart';
@@ -20,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   bool isMapView = true;
   bool isFiltersVisible = false;
   int pageIndex = 1;
+  LatLng centerCoordinate = LatLng(34.0500322, -6.8127248);
 
   List<Restaurant> restaurants = [
     Restaurant(
@@ -80,10 +84,34 @@ class _HomePageState extends State<HomePage> {
         "Chizza Mia takkadoum rabat", 'images/chizza_mia.jpg', 2, 'Fast Food'),
   ];
 
+  Restaurant _matchRestaurant =
+      Restaurant("", "", LatLng(33.9715904, -6.8498129), 0, "", "", 1, "");
+
+  void message(String str) {
+    Fluttertoast.showToast(
+      msg: "Home Page Message: $str",
+    );
+
+    void GoToRestaurantPage() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  RestaurantPage(restaurant: _matchRestaurant)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // message(_matchRestaurant.name);
+    // Fluttertoast.showToast(msg: _matchRestaurant.name);
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      // appBar: AppBar(
+      //   elevation: 0.0,
+      //   backgroundColor: Colors.white,
+      //   title: const SearchBarTypeahead(),
+      // ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Column(
@@ -95,13 +123,20 @@ class _HomePageState extends State<HomePage> {
                     const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                 child: Column(
                   children: [
+                    // const SearchBarTypeahead(),
                     SearchSection(
-                        isFilterVisible: isFiltersVisible,
-                        onToggleFilter: () {
-                          setState(() {
-                            isFiltersVisible = !isFiltersVisible;
-                          });
-                        }),
+                      isFilterVisible: isFiltersVisible,
+                      onToggleFilter: () {
+                        setState(() {
+                          isFiltersVisible = !isFiltersVisible;
+                        });
+                      },
+                      onSearch: (restaurant) {
+                        setState(() {
+                          _matchRestaurant = restaurant;
+                        });
+                      },
+                    ),
                     Visibility(
                       visible: isFiltersVisible,
                       child: const PriceFilter(),
@@ -117,11 +152,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            //! map and listview here
             Expanded(
               flex: 10,
               child: AnimatedCrossFade(
                 firstChild: MapView(
                   restaurants: restaurants,
+                  centerCoordinate: _matchRestaurant.location,
                 ),
                 secondChild: RestaurantListView(
                   restaurants: restaurants,
