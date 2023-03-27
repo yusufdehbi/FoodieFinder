@@ -1,4 +1,5 @@
 import 'package:first_version/componenets/rating.dart';
+import 'package:first_version/data/restaurants.dart';
 import 'package:first_version/models/restaurant.dart';
 import 'package:first_version/utilis/functions.dart';
 import 'package:first_version/utilis/style.dart';
@@ -24,8 +25,8 @@ class ResHorizontalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _distance = calcDistance(
-        LatLng(33.99452490, -6.82504580), LatLng(34.03122000, -6.81662600));
+    double _distance =
+        calcDistance(RestaurantsData.userLocation, restaurant.location);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

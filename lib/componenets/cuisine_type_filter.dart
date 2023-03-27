@@ -1,9 +1,11 @@
+import 'package:first_version/data/restaurants.dart';
 import 'package:first_version/models/cuisine_type_chip.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
 
 class CuisineTypeFilter extends StatefulWidget {
-  const CuisineTypeFilter({super.key});
+  final Function onFilter;
+  const CuisineTypeFilter({super.key, required this.onFilter});
 
   @override
   State<CuisineTypeFilter> createState() => _CuisineTypeFilterState();
@@ -22,11 +24,11 @@ class _CuisineTypeFilterState extends State<CuisineTypeFilter> {
   List<String> _selectedFilters = [];
 
   final List<String> _filters = [
-    'Moroccan',
-    'Italy',
-    'Chamy',
+    'Morrocan',
     'Fast Food',
-    'Korean',
+    'Cham',
+    'Fast Food',
+    'Mix',
     'Chinese'
   ];
   @override
@@ -57,6 +59,19 @@ class _CuisineTypeFilterState extends State<CuisineTypeFilter> {
                         return name == filter;
                       });
                     }
+                    RestaurantsData.cuisineTypeFiltered.clear();
+                    RestaurantsData.restaurants.forEach((restaurant) {
+                      _selectedFilters.forEach((cuisineType) {
+                        if (restaurant.cuisineType == cuisineType) {
+                          RestaurantsData.cuisineTypeFiltered.add(restaurant);
+                        }
+                      });
+                    });
+                    if (RestaurantsData.cuisineTypeFiltered.isEmpty) {
+                      RestaurantsData.cuisineTypeFiltered =
+                          RestaurantsData.restaurants;
+                    }
+                    widget.onFilter();
                   });
                 },
                 checkmarkColor: Colors.green,

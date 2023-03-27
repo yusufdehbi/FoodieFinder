@@ -14,6 +14,7 @@ import 'package:location/location.dart';
 import '../componenets/list_view.dart';
 import '../componenets/price_filter.dart';
 import '../componenets/search_bar.dart';
+import '../data/restaurants.dart';
 import '../models/restaurant.dart';
 
 class HomePage extends StatefulWidget {
@@ -141,6 +142,8 @@ class _HomePageState extends State<HomePage> {
   void _getLocation() async {
     try {
       _locationData = await location.getLocation();
+      RestaurantsData.userLocation =
+          LatLng(_locationData?.latitude ?? 0, _locationData?.longitude ?? 0);
       setState(() {});
     } catch (e) {
       print('Could not get the user\'s location: $e');
@@ -152,11 +155,42 @@ class _HomePageState extends State<HomePage> {
     return input;
   }
 
+  //!Filter CallBack
+  List<Restaurant> filteredRestaurants = RestaurantsData.restaurants;
+  void updateRestaurants(List<Restaurant> recievedRestaurant) {
+    setState(() {
+      // List<Restaurant> filteredRestaurants = RestaurantsData.priceFiltered
+      //     .where((element) =>
+      //         RestaurantsData.cuisineTypeFiltered.contains(element))
+      //     .toList();
+      //!//!//!//!//!//!//!//!//!//!
+      // filteredRestaurants.clear();
+      // filteredRestaurants = RestaurantsData.priceFiltered;
+      // if (filteredRestaurants.isEmpty) {
+      //   filteredRestaurants = RestaurantsData.restaurants;
+      //   print('yes its empty');
+      // }
+      filteredRestaurants = recievedRestaurant;
+      print('filtered restaurant: ${filteredRestaurants.toString()}');
+      // filteredRestaurants.forEach((element) {
+      //   Fluttertoast.showToast(msg: element.name + "filter");
+      // });
+    });
+  }
+
+//   void _updateRestaurants(Double priceRange) {
+//   setState(() {
+//     filteredRestaurants = restaurants.where((restaurant) {
+//       return restaurant.priceRange <= priceRange;
+//     }).toList();
+//   });
+// }
+
   @override
   Widget build(BuildContext context) {
     // message("restaurant coordinate: ${_matchRestaurant.location}");
     // message("center coordinate: $centerCoordinate");
-    message(_locationData.toString());
+    // message(_locationData.toString());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -175,6 +209,7 @@ class _HomePageState extends State<HomePage> {
                       isFilterVisible: isFiltersVisible,
                       onToggleFilter: () {
                         setState(() {
+                          // Fluttertoast.showToast(msg: "hello world");
                           isFiltersVisible = !isFiltersVisible;
                         });
                       },
@@ -185,17 +220,18 @@ class _HomePageState extends State<HomePage> {
                           centerCoordinate = _matchRestaurant.location;
                         });
                       },
+                      //!here where the filter join list get triggered
                     ),
                     Visibility(
                       visible: isFiltersVisible,
-                      child: const PriceFilter(),
+                      child: PriceFilter(onFilter: updateRestaurants),
                     ),
                     SizedBox(
                       height: xsmall,
                     ),
                     Visibility(
                       visible: isFiltersVisible,
-                      child: const CuisineTypeFilter(),
+                      child: CuisineTypeFilter(onFilter: updateRestaurants),
                     )
                   ],
                 ),
@@ -207,7 +243,7 @@ class _HomePageState extends State<HomePage> {
               child: AnimatedCrossFade(
                 //! map view
                 firstChild: MapView(
-                  restaurants: restaurants,
+                  restaurants: filteredRestaurants,
                   // centerCoordinate: centerCoordinate,
                   mapOptions: mapOptions(),
                   start: LatLng(_locationData?.latitude ?? 33.97349488165066,
@@ -216,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 //! list view
                 secondChild: RestaurantListView(
-                  restaurants: restaurants,
+                  restaurants: filteredRestaurants,
                 ),
                 duration: const Duration(seconds: 1),
                 crossFadeState: isMapView
@@ -232,7 +268,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           setState(() {
             isMapView = !isMapView;
-            _getLocation();
+            // _getLocation();
           });
         },
         child: isMapView ? const Icon(Icons.list) : const Icon(Icons.map),

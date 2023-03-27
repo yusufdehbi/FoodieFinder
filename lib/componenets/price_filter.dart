@@ -1,8 +1,12 @@
+import 'package:first_version/data/restaurants.dart';
+import 'package:first_version/models/restaurant.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PriceFilter extends StatefulWidget {
-  const PriceFilter({super.key});
+  final Function onFilter;
+  const PriceFilter({super.key, required this.onFilter});
 
   @override
   State<PriceFilter> createState() => _PriceFilterState();
@@ -10,6 +14,7 @@ class PriceFilter extends StatefulWidget {
 
 class _PriceFilterState extends State<PriceFilter> {
   List<String> _selectedFilters = [];
+  List<Restaurant> filtredRestaurants = [];
   final List<String> _filters = [
     r'$',
     r'$$',
@@ -44,6 +49,33 @@ class _PriceFilterState extends State<PriceFilter> {
                           return name == filter;
                         });
                       }
+                      //code go here
+                      filtredRestaurants.clear();
+                      RestaurantsData.restaurants.forEach(
+                        (restaurant) {
+                          _selectedFilters.forEach((element) {
+                            if (restaurant.priceRange == element.length) {
+                              filtredRestaurants.add(restaurant);
+                            }
+                          });
+                        },
+                      );
+                      RestaurantsData.priceFiltered = filtredRestaurants;
+                      if (_selectedFilters.length == 0) {
+                        RestaurantsData.priceFiltered =
+                            RestaurantsData.restaurants;
+                      }
+                      if (_selectedFilters.isEmpty) {
+                        widget.onFilter(RestaurantsData.restaurants);
+                      } else {
+                        widget.onFilter(filtredRestaurants);
+                      }
+                      // RestaurantsData.priceFiltered.forEach((restaurant) {
+                      //   Fluttertoast.showToast(
+                      //       msg: "${restaurant.name} from data");
+                      // });
+                      print("price filtered: " +
+                          RestaurantsData.priceFiltered.toString());
                     });
                   },
                   checkmarkColor: Colors.green,

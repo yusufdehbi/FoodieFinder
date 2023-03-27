@@ -1,3 +1,4 @@
+import 'package:first_version/data/restaurants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:first_version/componenets/search_bar_typeahead.dart';
 import 'package:first_version/utilis/style.dart';
@@ -12,11 +13,12 @@ class SearchSection extends StatefulWidget {
   final bool isFilterVisible;
   final Function() onToggleFilter;
 
-  const SearchSection(
-      {super.key,
-      required this.isFilterVisible,
-      required this.onToggleFilter,
-      required this.onSearch});
+  const SearchSection({
+    super.key,
+    required this.isFilterVisible,
+    required this.onToggleFilter,
+    required this.onSearch,
+  });
 
   @override
   State<SearchSection> createState() => _SearchSectionState();
@@ -84,7 +86,9 @@ class _SearchSectionState extends State<SearchSection> {
                     Icons.swap_horiz,
                     color: white,
                   ),
-            onPressed: () {},
+            onPressed: () {
+              widget.onToggleFilter();
+            },
           ),
         ),
       ],
