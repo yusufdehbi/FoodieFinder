@@ -84,7 +84,7 @@ class _MapViewState extends State<MapView> {
 
   @override
   Widget build(BuildContext context) {
-    // getRoutes(widget.start, widget.end);
+    getRoutes(widget.start, widget.end);
     return FlutterMap(
       options: MapOptions(
         zoom: 14.0,
