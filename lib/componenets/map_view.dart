@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 
 class MapView extends StatefulWidget {
   final LatLng start;
-  // final LatLng end;
+  final LatLng end;
   final List<Restaurant> restaurants;
   // final LatLng centerCoordinate;
   final MapOptions mapOptions;
@@ -21,7 +21,7 @@ class MapView extends StatefulWidget {
     required this.restaurants,
     required this.mapOptions,
     required this.start,
-    // required this.end,
+    required this.end,
   });
 
   @override
@@ -84,7 +84,7 @@ class _MapViewState extends State<MapView> {
 
   @override
   Widget build(BuildContext context) {
-    // getRoutes(widget.start, widget.end);
+    getRoutes(widget.start, widget.end);
     return FlutterMap(
       options: MapOptions(
         zoom: 14.0,
@@ -100,14 +100,17 @@ class _MapViewState extends State<MapView> {
           markers: widget.restaurants
               .map(
                 (restaurant) => Marker(
+                  width: 80.0,
+                  height: 80.0,
                   // anchorPos: AnchorPos.align(AnchorAlign.top),
                   point: restaurant.location,
-                  builder: (context) => GestureDetector(
-                    onTap: () {
-                      print(" clicked");
+                  builder: (ctx) => IconButton(
+                    onPressed: () {
+                      print(" clicked kooooooooooooooooooooo");
                     },
-                    child: Icon(
+                    icon: Icon(
                       MarkerIconFirst.filled,
+
                       // Icons.location_history_sharp,
                       color: Colors.orange[900],
                       size: 50.0,

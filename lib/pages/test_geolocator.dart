@@ -75,8 +75,11 @@ class _TestGeolocatorState extends State<TestGeolocator> {
                   height: 80,
                   point: LatLng(_locationData!.latitude ?? 33.986977,
                       _locationData!.longitude ?? -6.854890),
-                  builder: (ctx) =>
-                      const Icon(Icons.location_on, color: Colors.red),
+                  builder: (ctx) => IconButton(
+                      onPressed: () {
+                        print("click meeeeeeeeeeeeeeeeeeeeeeee");
+                      },
+                      icon: const Icon(Icons.location_on, color: Colors.red)),
                 ),
               ],
             ),

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:first_version/componenets/cuisine_type_filter.dart';
 import 'package:first_version/componenets/map_view.dart';
 import 'package:first_version/componenets/search_bar_typeahead.dart';
@@ -146,6 +148,10 @@ class _HomePageState extends State<HomePage> {
   }
   //!End of getting location stuff
 
+  Double oneValue(Double input) {
+    return input;
+  }
+
   @override
   Widget build(BuildContext context) {
     // message("restaurant coordinate: ${_matchRestaurant.location}");
@@ -204,7 +210,9 @@ class _HomePageState extends State<HomePage> {
                   restaurants: restaurants,
                   // centerCoordinate: centerCoordinate,
                   mapOptions: mapOptions(),
-                  start: LatLng(33.97349488165066, -6.835152054664992),
+                  start: LatLng(_locationData?.latitude ?? 33.97349488165066,
+                      _locationData?.longitude ?? -6.835152054664992),
+                  end: _matchRestaurant.location,
                 ),
                 //! list view
                 secondChild: RestaurantListView(
