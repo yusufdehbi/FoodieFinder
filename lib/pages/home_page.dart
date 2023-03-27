@@ -4,8 +4,10 @@ import 'package:first_version/componenets/search_bar_typeahead.dart';
 import 'package:first_version/pages/restaurant_page.dart';
 import 'package:first_version/utilis/style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 
 import '../componenets/list_view.dart';
 import '../componenets/price_filter.dart';
@@ -87,44 +89,70 @@ class _HomePageState extends State<HomePage> {
   Restaurant _matchRestaurant =
       Restaurant("", "", LatLng(33.9715904, -6.8498129), 0, "", "", 1, "");
 
+  MapOptions mapOptions() {
+    return MapOptions(
+      zoom: 14.0,
+      center: _matchRestaurant.location,
+      interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+    );
+  }
+
   void message(String str) {
     Fluttertoast.showToast(
-      msg: "Home Page Message: $str",
+      msg: "Home  : $str",
     );
-
-    //   void GoToRestaurantPage() {
-    //     Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //             builder: (context) =>
-    //                 RestaurantPage(restaurant: _matchRestaurant)));
-    //   }
-    // }
-
-    //  void _updateMapCenter(LatLng newCenter) {
-    //   setState(() {
-    //     _newCenter = newCenter;
-    //   });
-
-    // void _updateMapCenter(LatLng newCenter) {
-    //   setState(() {
-    //     centerCoordinate = newCenter;
-    //   });
-    // }
   }
+
+  //!variable for getting user location
+  Location location = Location();
+  bool _serviceEnabled = false;
+  PermissionStatus _permissionGranted = PermissionStatus.denied;
+  LocationData? _locationData;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLocationPermission();
+  }
+
+  void _checkLocationPermission() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _getLocation();
+  }
+
+  void _getLocation() async {
+    try {
+      _locationData = await location.getLocation();
+      setState(() {});
+    } catch (e) {
+      print('Could not get the user\'s location: $e');
+    }
+  }
+  //!End of getting location stuff
 
   @override
   Widget build(BuildContext context) {
-    message(_matchRestaurant.name);
-    message("new coordinate: $centerCoordinate");
-    // Fluttertoast.showToast(msg: _matchRestaurant.name);
+    // message("restaurant coordinate: ${_matchRestaurant.location}");
+    // message("center coordinate: $centerCoordinate");
+    message(_locationData.toString());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      // appBar: AppBar(
-      //   elevation: 0.0,
-      //   backgroundColor: Colors.white,
-      //   title: const SearchBarTypeahead(),
-      // ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Column(
@@ -144,9 +172,11 @@ class _HomePageState extends State<HomePage> {
                           isFiltersVisible = !isFiltersVisible;
                         });
                       },
+                      //!here where the HomePage() get the MatchRestaurant
                       onSearch: (restaurant) {
                         setState(() {
                           _matchRestaurant = restaurant;
+                          centerCoordinate = _matchRestaurant.location;
                         });
                       },
                     ),
@@ -169,10 +199,14 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               flex: 10,
               child: AnimatedCrossFade(
+                //! map view
                 firstChild: MapView(
                   restaurants: restaurants,
-                  centerCoordinate: _matchRestaurant.location,
+                  // centerCoordinate: centerCoordinate,
+                  mapOptions: mapOptions(),
+                  start: LatLng(33.97349488165066, -6.835152054664992),
                 ),
+                //! list view
                 secondChild: RestaurantListView(
                   restaurants: restaurants,
                 ),
@@ -190,6 +224,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           setState(() {
             isMapView = !isMapView;
+            _getLocation();
           });
         },
         child: isMapView ? const Icon(Icons.list) : const Icon(Icons.map),

@@ -40,7 +40,7 @@ class _ResAppState extends State<ResApp> {
               : pageIndex == 1
                   ? const HomePage()
                   //!Page Chnaged for test purpose - should back to favorite page.
-                  : const Geolocator(),
+                  : TestGeolocator(),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               setState(() {
